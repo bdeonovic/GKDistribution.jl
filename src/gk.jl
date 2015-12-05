@@ -10,7 +10,6 @@ immutable GK <: ContinuousUnivariateDistribution
   function GK(A::Real, B::Real, g::Real, k::Real, c::Real)
     ## check args
     0.0 <= c < 1.0 || throw(Argumenterror("c must be 0 <= c < 1"))
-    
 
     ## distribution
     new(A, B, g, k, c)
@@ -38,7 +37,6 @@ function quantile(d::GK, p::Float64)
   z2gk(d, z)
 end
 
-
 function Qinv(d::GK, x::Real)
   z = gk2z(d, x)
   cdf(Normal(), z)
@@ -51,7 +49,9 @@ function validate(d::GK)
     scale(d) > 0 && kurtosis(d) > -0.5
 end
 
-
+function pdf(d::GK, x::Real)
+  exp(logpdf(d, x))
+end
 
 function logpdf(d::GK, x::Real)
   if !validate(d)
@@ -107,7 +107,6 @@ function fit_mle{T <: Real}(d::GK, x::AbstractVector{T})
   return GK(optres.minimum...)
 end
 
-
 function gk2z(d::GK, x::Real; max_expands::Integer = 100, expand::Integer = 10)
   y = (x - location(d)) / scale(d)
   if y == 0 
@@ -143,5 +142,3 @@ function z2gk(d::GK, z::Float64)
   term3 = (1.0 + z ^ 2) ^ kurtosis(d)
   location(d) + scale(d) * z * term2 * term3 
 end
-
-

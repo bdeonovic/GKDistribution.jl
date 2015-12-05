@@ -26,7 +26,6 @@ module GKDistribution
 
   include("gk.jl")
   export GK, 
-         validate, 
          logpdf, 
          quantile, 
          location, 
@@ -39,5 +38,7 @@ module GKDistribution
          params, 
          minimum, 
          maximum, 
-         insupport
+         insupport,
+         pdf
+
 end # module
