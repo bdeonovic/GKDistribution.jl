@@ -1,5 +1,43 @@
+using Distributions
+
 module GKDistribution
 
-# package code goes here
+  import Distributions:
+         ContinuousUnivariateDistribution,
+         location,
+         scale,
+         skewness,
+         kurtosis,
+         params,
+         minimum,
+         maximum,
+         insupport,
+         quantile,
+         logpdf,
+         fit_mle,
+         Normal,
+         cdf,
+         pdf
 
+  import Optim: 
+         optimize
+  import Roots:
+         fzero
+
+  include("gk.jl")
+  export GK, 
+         validate, 
+         logpdf, 
+         quantile, 
+         location, 
+         scale, 
+         skewness, 
+         kurtosis, 
+         asymmetry, 
+         logpdf, 
+         quantile, 
+         params, 
+         minimum, 
+         maximum, 
+         insupport
 end # module
